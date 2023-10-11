@@ -21,6 +21,8 @@ using Microsoft.Extensions.Logging;
 using MvcMovie.CommonHelper;
 using MvcMovie.Models.Models;
 
+
+
 namespace MvcMovie.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
@@ -143,6 +145,12 @@ namespace MvcMovie.Areas.Identity.Pages.Account
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
+                user.FirstName = Input.FirstName;
+                user.LastName = Input.LastName;
+                user.Email = Input.Email;
+                user.PhoneNumber = Input.PhoneNumber;
+                user.ImageData = Input.ImageData;   
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
@@ -179,11 +187,13 @@ namespace MvcMovie.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private IdentityUser CreateUser()
+        //private IdentityUser CreateUser()
+        private ApplicationUser CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<IdentityUser>();
+                //return Activator.CreateInstance<IdentityUser>();
+                return Activator.CreateInstance<ApplicationUser>();
             }
             catch
             {
