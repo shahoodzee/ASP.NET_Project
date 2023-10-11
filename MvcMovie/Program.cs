@@ -3,6 +3,8 @@ using MvcMovie.DataAccessLayer.Infrastructure.IRepository;
 using MvcMovie.DataAccessLayer.Infrastructure.Repository;
 using Microsoft.AspNetCore.Identity;
 using MvcMovie.DataAccessLayer.Data;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using MvcMovie.CommonHelper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => {
 //add a role and default token provider.
 builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddDefaultTokenProviders()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
 
 builder.Services.AddRazorPages();
 var app = builder.Build();
