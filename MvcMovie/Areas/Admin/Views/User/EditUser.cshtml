@@ -1,0 +1,67 @@
+﻿@*
+                                    Edit user page with using API Handling,
+*@
+@{
+    ViewData["Title"] = "Edit";
+}
+@model MvcMovie.Models.ViewModels.UserVM
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit User</title>
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+<script>
+    function validateForm() {
+
+        return Alert("User Editted Successfully");
+    }
+</script>
+
+<body>
+    <center>
+        <div class="container">
+            <h3>Edit User</h3>
+            <form method="post" asp-controller="User" asp-action="Edit" onsubmit="return validateForm()">
+
+                <input type="hidden" asp-for="User.Id" name="Id"/>
+
+                <div class="myform">
+                    <input class="input" type="text" asp-for="User.FirstName" name="FirstName" placeholder="First Name" required />
+                    <span class="input-border"></span>
+                    <br />
+                </div>
+
+                <div class="myform">
+                    <input class="input" type="text" asp-for="User.LastName" name="LastName" placeholder="Last Name" required />
+                    <span class="input-border"></span>
+                    <br />
+                </div>
+
+                <div class="myform">
+                    <input class="input" type="text" asp-for="User.City" name="City" placeholder="City" required />
+                    <span class="input-border"></span>
+                    <br />
+                </div>
+
+                <div class="myform">
+                    <select asp-for="User.DepartmentId" asp-items="@Model.departments" class="form-control">
+                        <option value="User.DepartmentId">Select Department</option>
+                    </select>
+                    <br />
+                </div>
+
+                <button class="btn btn-primary btn-group-sm" type="submit">Update User</button>
+                @Html.ValidationSummary()
+
+            </form>
+        </div>
+    </center>
+
+
+
+</body>
+</html>
+
+

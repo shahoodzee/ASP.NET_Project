@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+@model MvcMovie.Models.ViewModels.DepartmentVM
+
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/User.css">
+</head>
+
+@section scripts {
+
+    <script src="~/js/Department.js"></script>
+
+}
+<body>
+    <section>
+        <div class="contianer">
+            <h5>List of users in our system.</h5>
+            <h5>
+                <a asp-action="Create" asp-controller="department">Create a User</a>
+                <a asp-action="Search" asp-controller="department"> Seach a User</a>
+                <a asp-action="Edit" asp-controller="department"> Edit a User</a>
+                <a asp-action="Delete" asp-controller="department"> Delete a User</a>
+            </h5>
+
+            <div class="container ">
+                <div class="table-responsive">
+                    <table class="table table-primary table-hover border border-primary border-3">
+
+
+                        <thead class="table-light">
+                            <tr>
+                                <th>D_id</th>
+                                <th>D_name</th>
+                                <th>D_description</th>
+                                <th>Created At</th>
+                                <th>UpdatedDateTime</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.departments)
+                            {
+                                <tr>
+                                    @if (@item.D_name is not null)
+                                    {
+                                        <td>@item.Id</td>
+                                        <td>@item.D_name</td>
+                                        <td>@item.D_description</td>
+                                        <td>@item.CreatedDateTime</td>
+                                        <td>@item.UpdatedDateTime</td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+
+
+        </div>
+    </section>
+</body>
+

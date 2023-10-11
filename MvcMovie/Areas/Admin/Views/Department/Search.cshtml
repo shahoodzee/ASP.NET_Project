@@ -1,0 +1,55 @@
+﻿@using MvcMovie.Models.Models;
+
+@{
+    ViewData["Title"] = "Search";
+}
+@*@model MvcMovie.Models.ViewModels.DepartmentVM*@
+@model Department
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search User</title>
+	<link href="~/css/site.css" rel="stylesheet" />
+</head>
+<body>
+
+
+    <section class="vh-500">
+        <div class="container justify-content-center align-items-center">
+            <h3>Search A User in the Database</h3>
+            <form method="post" asp-action="SearchResult" class="row row-cols-lg-auto g-2 align-items-center">
+                <div class="col-12">
+                    <label class="visually-hidden" for="inlineFormInputGroupUsername">Username</label>
+                    <div class="input-group">
+                        <div class="input-group-text">-></div>
+                        <input type="text"
+                               class="form-control"
+                               id="Id" name="userId"
+                               placeholder="Username"
+                               required />
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
+            @Html.ValidationSummary()
+        </div>
+
+    </section>
+    <br />
+
+
+    @if (Model != null)
+    {
+        <section>
+            <h1>@Model.Id</h1>
+            <h1>@Model.D_name</h1>
+            <h1>@Model.D_description</h1>
+        </section>
+    }
+</body>
+</html>
+

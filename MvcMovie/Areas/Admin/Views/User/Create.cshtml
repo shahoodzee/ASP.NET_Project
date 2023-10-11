@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+}
+
+@model MvcMovie.Models.ViewModels.UserVM
+
+<head>
+	<!-- Include the CSS file -->
+	<link rel="stylesheet" type="text/css" href="~/css/createuserform.css">
+	<!-- Other head content -->
+</head>
+<script>
+	function validateForm() {
+
+		var fileInput = document.querySelector('input[type="file"]');
+		if (!fileInput.files[0]) {
+			alert('Please select an image file.'); 
+			return false;
+		}
+		return true;
+	}
+</script>
+<body>
+	<section>
+		<div class="card">
+			<h5>Add a User form</h5>
+			<a asp-controller="user"> Users</a>
+			<div class="User-Form">
+				<form method="post" asp-action="Create" enctype="multipart/form-data" onsubmit="return validateForm()">
+
+					<div class="myform">
+						<input class="input" type="text" asp-for="User.FirstName" name="FirstName" placeholder="First Name" required />
+						<span class="input-border"></span>
+						<br />
+					</div>
+					<div class="myform">
+						<input class="input" type="text" asp-for="User.LastName" name="LastName" placeholder="last name" required />
+						<span class="input-border"></span>
+						<br />
+					</div>
+					<div class="myform">
+						<input class="input" type="email" asp-for="User.Email" name="Email" placeholder="Email" required />
+						<span class="input-border"></span>
+						<br />
+					</div>
+
+					<div class="myform">
+						<select asp-for="User.DepartmentId" asp-items="@Model.departments" class="form-control">
+							<option value="User.DepartmentId">Select Department</option>
+						</select>
+						<br />
+					</div>
+
+
+					<div class="myform">
+						<input class="input" type="text" asp-for="User.City" name="City" placeholder="City" required />
+						<span class="input-border"></span>
+						<br />
+					</div>
+					<div class="input-group mb-3">
+						<input type="file" id="ImageData" class="form-control" asp-for="User.ImageData" name="ImageData" />
+					</div>
+					<br />
+
+					<div class="myform">
+						<button class="btn btn-outline-primary" type="submit">Create User</button>
+					</div>
+
+
+						@Html.ValidationSummary()
+					</form>
+				</div>
+			</div>
+		</section>
+	</body>

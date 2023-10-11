@@ -1,0 +1,44 @@
+﻿@{
+	ViewData["Title"] = "Create";
+}
+
+@model MvcMovie.Models.ViewModels.DepartmentVM
+
+<head>
+	<!-- Include the CSS file -->
+	<link rel="stylesheet" type="text/css" href="~/css/createuserform.css">
+	<!-- Other head content -->
+</head>
+<script>
+</script>
+<body>
+	<section>
+		<div class="card">
+			<h5>Add a Department form</h5>
+			<a asp-action="Index" asp-controller="department">Department</a>
+			<div class="User-Form">
+				<form method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+
+					<div class="myform">
+						<input class="input" type="text" asp-for="department.D_name" name="D_name" placeholder="Dept name" required />
+						<span class="input-border"></span>
+						<br />
+					</div>
+					<div class="myform">
+						<input class="input" type="text" asp-for="department.D_description" name="D_Description" placeholder="Dept Description" required />
+						<span class="input-border"></span>
+						<br />
+					</div>
+					<br />
+					<br />
+					<div class="myform">
+						<button class="btn btn-outline-primary" type="submit">Create Department</button>
+					</div>
+
+
+					@Html.ValidationSummary()
+				</form>
+			</div>
+		</div>
+	</section>
+</body>

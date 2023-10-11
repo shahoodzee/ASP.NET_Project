@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+    video {
+        width: 100%;
+        height: auto;
+    }
+
+    div.polaroid {
+        width: 100%;
+        background-color: white;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    section{
+        width:100%;
+        
+    }
+</style>
+<head>
+	<link href="~/css/site.css" rel="stylesheet" />
+</head>
+<body>
+    <section>
+        <div>
+            <center>
+                <h1>Welcome to MyBank</h1>
+            </center>
+        </div>
+    </section>
+
+    <section>
+        <center>
+            <video style="width:100%;" autoplay loop>
+                <source src="~/video/pexels-mikhail-nilov-7535099%20(original).mp4" type="video/mp4" />
+            </video>
+        </center>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <center>
+                        <h1>Our Features</h1>
+                        <><b>Our 3 Primary Features -</b></>
+                    </center>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <center>
+                        <div class="polaroid">
+                            <img width="200" src="~/index-images/4380.jpg" />
+                        </div>
+                        <div class="container1"><h4>Online Banking</h4></div>
+
+                        <p class="text-justify">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor. reprehenderit</p>
+                    </center>
+                </div>
+                <div class="col-md-4">
+                    <center>
+                        <div class="polaroid">
+                            <img width="200" src="~/index-images/5456485.jpg" />
+                        </div>
+                        <div class="container1"><h4>Faster Response</h4></div>
+
+                        <p class="text-justify">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor. reprehenderit</p>
+                    </center>
+                </div>
+                <div class="col-md-4">
+                    <center>
+                        <div class="polaroid">
+                            <img width="200" src="~/index-images/7501185.jpg" />
+                        </div>
+                        <div class="container1"><h4>Better Management.</h4></div>
+
+                        <p class="text-justify">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor. reprehenderit</p>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+

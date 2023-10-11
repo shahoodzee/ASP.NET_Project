@@ -1,0 +1,38 @@
+﻿
+@model User
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8" />
+	<link href="~/css/site.css" rel="stylesheet" />
+    <title>Delete User</title>
+</head>
+<script>
+    function validateForm() {
+        alert('User Deleted Successfully');
+    }
+</script>
+<body>
+
+
+    <div class="container">
+
+        <h3>Delete A User in the Database</h3>
+
+        <form method="post" asp-controller="user" asp-action="ConfirmDelete">
+            @Html.AntiForgeryToken()
+            <div class="myform">
+                <input class="input" type="text" id="userId" name="userId" placeholder="Enter User-Id" required />
+                <span class="input-border"></span>
+            
+            </div>
+            <br />
+
+            <button class="btn btn-primary" type="submit">Delete User</button>
+
+            @Html.ValidationSummary()
+
+        </form>
+
+    </div>
+
+</body>
