@@ -2101,7 +2101,7 @@ Your final Program.cs file will look like this:
 	
 	app.Run();
 
-Still you would be facing an issue when you go click the register button
+**Still you would be facing an issue when you go click the register button**
 ![Screenshot 2023-10-11 130459](https://github.com/shahoodzee/MvcMovie/assets/93043483/cac6ba5c-16ab-47a4-997b-21d6fbe4405b)
 
 You need to implement the EmailSender class. Goto `MvcMovie.CommonHelper` and make `EmailSender` class and Inherit it with `IEmailSender`.
@@ -2133,4 +2133,115 @@ Add the library at top.
 
 	using MvcMovie.CommonHelper;
 
- 
+ ## Cutomize Fields in the Register tag in navbar.
+Goto `Register.cshtml.cs` file.
+Goto the `InputModel` and add the rest of the fields you have in your `ApplicationUser` Model
+
+
+        public class InputModel
+        {
+            /// <summary>
+            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+            ///     directly from your code. This API may change or be removed in future releases.
+            /// </summary>
+            [Required]
+            [EmailAddress]
+            [Display(Name = "Email")]
+            public string Email { get; set; }
+
+            /// <summary>
+            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+            ///     directly from your code. This API may change or be removed in future releases.
+            /// </summary>
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [DataType(DataType.Password)]
+            [Display(Name = "Password")]
+            public string Password { get; set; }
+
+            /// <summary>
+            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+            ///     directly from your code. This API may change or be removed in future releases.
+            /// </summary>
+            [DataType(DataType.Password)]
+            [Display(Name = "Confirm password")]
+            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            public string ConfirmPassword { get; set; }
+
+
+            [DataType(DataType.PhoneNumber)]
+            [RegularExpression("^[0-9]*$", ErrorMessage = "Phone Number should only contain digits.")]
+            [Display(Name = "Phone Number")]
+            [Required]
+            public string PhoneNumber { get; set; }
+
+            // The rest of the fields coming from the ApplicationUser.
+            
+	    public string? FirstName { get; set; }
+            public string? LastName { get; set; }
+            public string? City { get; set; }
+            public byte[]? ImageData { get; set; }
+
+        }
+
+ Now add these fields in the <Form> tag of the `Register.cshtml` file.
+
+     <div class="col-md-6">
+            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+
+                <h2>Create a new account.</h2>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="myform col-12 py-2">
+                    <input asp-for="Input.Email" class="input" aria-required="true" placeholder="Email" />
+                    <span asp-validation-for="Input.Email" class="input-border"></span>
+                <br />
+            </div>
+                <div class="myform col-12 py-2">
+                    <input asp-for="Input.Password" class="input" aria-required="true" placeholder="Password" />
+                    <span @*asp-validation-for="Input.Password"*@ class="input-border"></span>
+                    <br />
+                </div>
+                <div class="myform col-6 py-2">
+                    <input asp-for="Input.ConfirmPassword" class="input" aria-required="true" placeholder="Confirm Password" />
+                    <span @*asp-validation-for="Input.ConfirmPassword"*@ class="input-border"></span>
+                    <br />
+
+                </div>
+
+                <div class="myform col-6 py-2">
+                    <input asp-for="Input.FirstName" class="input" aria-required="true" placeholder="FirstName" />
+                    <span asp-validation-for="Input.FirstName" class="input-border"></span>
+                    <br />
+                </div>
+
+                <div class="myform col-6 py-2">
+                    <input asp-for="Input.LastName" class="input" aria-required="true" placeholder="LastName" />
+                    <span asp-validation-for="Input.LastName" class="input-border"></span>
+                    <br />
+                </div>
+
+                <div class="myform col-6 py-2">
+                    <input asp-for="Input.City" class="input" aria-required="true" placeholder="City" />
+                    <span asp-validation-for="Input.City" class="input-border"></span>
+                </div>
+
+                <div class="myform col-12 py-2">
+                    <input asp-for="Input.PhoneNumber" class="input" aria-required="true" placeholder="Phone #" />
+                    <span asp-validation-for="Input.PhoneNumber" class="input-border"></span>
+                </div>
+                <div class="myform col-12 py-2">
+                <input asp-for="Input.ImageData" class="form-control" aria-required="true" placeholder="Phone #" type="file" id="ImageData" />
+                    <span asp-validation-for="Input.ImageData" class="input-border"></span>
+                </div>
+
+                <button id="registerSubmit" type="submit" class="w-50 btn btn-lg btn-primary">Register</button>
+                <hr />
+
+            </form>
+    </div>
+    
+![Screenshot 2023-10-11 160625](https://github.com/shahoodzee/ASP.NET_Project/assets/93043483/cf9aceea-a89a-49ae-aaa4-ed68359c754e)
+
+We havent configured these Inputs with the database. So goto `Register.cshtml` file again. Goto onpostAsync Function.
