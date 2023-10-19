@@ -2245,6 +2245,9 @@ Goto the `InputModel` and add the rest of the fields you have in your `Applicati
 ![Screenshot 2023-10-11 160625](https://github.com/shahoodzee/ASP.NET_Project/assets/93043483/cf9aceea-a89a-49ae-aaa4-ed68359c754e)
 
 We havent configured these Inputs with the database. So goto `Register.cshtml` file again. Goto onpostAsync Function.
+the function `OnpostAsync` will look lie this.
+![image](https://github.com/shahoodzee/ASP.NET_Project/assets/93043483/cffad29e-448e-4a91-93ac-7cc01ee829fb)
+Thats it for the Registering the user. When you register ther user the table of  
 
 
  We do need this `CommonHelper` to create Roles in our website. But there is shortcut method as well.
