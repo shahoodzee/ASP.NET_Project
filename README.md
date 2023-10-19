@@ -2245,3 +2245,128 @@ Goto the `InputModel` and add the rest of the fields you have in your `Applicati
 ![Screenshot 2023-10-11 160625](https://github.com/shahoodzee/ASP.NET_Project/assets/93043483/cf9aceea-a89a-49ae-aaa4-ed68359c754e)
 
 We havent configured these Inputs with the database. So goto `Register.cshtml` file again. Goto onpostAsync Function.
+
+
+ We do need this `CommonHelper` to create Roles in our website. But there is shortcut method as well.
+
+ Explicitly Define roles in the `program.cs` file.
+
+ using (var scope = app.Services.CreateScope() )
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    var roles = new[] {"Admin" , "Employee" , "User"};
+
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+        {
+            await roleManager.CreateAsync(new IdentityRole(role));
+        }
+    }
+}
+
+For `Admin` we will define its role by explicitly defining.
+
+You can watch this youtube video on how to assign roles.
+https://www.youtube.com/watch?v=Y6DCP-yH-9Q&pp=ygUiYXNzaWduaW5nIHJvbGVzIGluIEFTUC5ORVQgcHJvamVjdA%3D%3D
+
+Our final **program.cs** file will look like this.
+
+	using Microsoft.EntityFrameworkCore;
+	using MvcMovie.DataAccessLayer.Infrastructure.IRepository;
+	using MvcMovie.DataAccessLayer.Infrastructure.Repository;
+	using Microsoft.AspNetCore.Identity;
+	using MvcMovie.DataAccessLayer.Data;
+	using Microsoft.AspNetCore.Identity.UI.Services;
+	using MvcMovie.CommonHelper;
+	
+	var builder = WebApplication.CreateBuilder(args);
+	
+	// Add services to the container.
+	builder.Services.AddControllersWithViews();
+	builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+	//adding database services---------------------------------------------------------------------------
+	builder.Services.AddControllersWithViews();
+	
+	builder.Services.AddDbContext<ApplicationDbContext>(options => {
+	    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+	});
+	
+	//builder.Services.AddDefaultIdentity<IdentityUser>()
+	//    .AddEntityFrameworkStores<ApplicationDbContext>();
+	
+	//add a role and default token provider.
+	builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddDefaultTokenProviders()
+	    .AddEntityFrameworkStores<ApplicationDbContext>();
+	
+	builder.Services.AddSingleton<IEmailSender, EmailSender>();
+	builder.Services.AddRazorPages();
+	var app = builder.Build();
+	
+	//----------------------------------------------------------------------------------------------------
+	
+	// Configure the HTTP request pipeline.
+	if (!app.Environment.IsDevelopment())
+	{
+	    app.UseExceptionHandler("/Home/Error");
+	    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+	    app.UseHsts();
+	}
+	
+	app.UseHttpsRedirection();
+	app.UseStaticFiles();
+	
+	app.UseRouting();
+	app.UseAuthentication();;
+	
+	app.UseAuthorization();
+	app.MapRazorPages();
+	
+	app.MapControllerRoute(
+	    name: "default",
+	    pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
+	
+	using (var scope = app.Services.CreateScope() )
+	{
+	    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+	
+	    var roles = new[] {"Admin" , "Employee" , "User"};
+	
+	    foreach (var role in roles)
+	    {
+	        if (!await roleManager.RoleExistsAsync(role))
+	        {
+	            await roleManager.CreateAsync(new IdentityRole(role));
+	        }
+	    }
+	}
+	
+	using (var scope = app.Services.CreateScope())
+	{
+		var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+	
+	    // we only want the admin account single time.
+	
+	    string email = "admin@admin.com";
+	    string password = "Test1234!";
+	
+	    if (await userManager.FindByEmailAsync(email) == null)
+	    {
+	        var user = new IdentityUser();
+	        user.UserName = email;
+			user.Email = email;
+	
+			await userManager.CreateAsync(user, password);
+	
+	        await userManager.AddToRoleAsync(user, "Admin");
+	    }
+	}
+	
+	app.Run();
+So whenever your you login the website `AspNetUserRoles` gets populated. So a roleId is assigned against the userId of the user.
+Now you that you have created these roles. We can go in `Areas` and use the Authorize() funciton to segregate the website functions based on website roles.
+
+Next goto MvcMovie->Areas->Admin->Controller->UserController.cs.
+Just add the Authorzie(Roles = 'Admin')
+![Screenshot 2023-10-19 111249](https://github.com/shahoodzee/MvcMovie/assets/93043483/82ebf548-6de6-43b2-a19d-d288d7d5b86b)
