@@ -3,6 +3,7 @@
 #nullable disable
 
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -133,10 +134,11 @@ namespace MvcMovie.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string returnUrl = null )
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
@@ -149,7 +151,8 @@ namespace MvcMovie.Areas.Identity.Pages.Account
                 user.LastName = Input.LastName;
                 user.Email = Input.Email;
                 user.PhoneNumber = Input.PhoneNumber;
-                user.ImageData = Input.ImageData;   
+                user.ImageData = Input.ImageData;
+
 
                 if (result.Succeeded)
                 {

@@ -6,66 +6,76 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<script>
-    function validateForm() {
+<style>
 
-        var fileInput = document.querySelector('input[type="file"]');
-        if (!fileInput.files[0]) {
-            alert('Please select an image file.');
-            return false;
-        }
-        return true;
+
+    .title {
+        font-size: 28px;
+        color: rgb(0,128,255);
+        font-weight: 600;
+        letter-spacing: -1px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding-left: 0px;
     }
-</script>
+
+
+
+</style>
+
 <div class="row">
     <div class="col-md-6">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" onsubmit="return validateForm()" >
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" enctype="multipart/form-data" >
 
-                <h2>Create a new account.</h2>
+                <h2 class="title">Create a new account.</h2>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                 <div class="myform col-12 py-2">
                     <input asp-for="Input.Email" class="input" aria-required="true" placeholder="Email" />
-                    <span asp-validation-for="Input.Email" class="input-border"></span>
+                    <span @*asp-validation-for="Input.Email"*@ class="input-border"></span>
                 </div>
-                <div class="myform col-12 py-2">
+
+                <div class="myform">
                     <input asp-for="Input.Password" class="input" aria-required="true" placeholder="Password" />
                     <span @*asp-validation-for="Input.Password"*@ class="input-border"></span>
                 </div>
-                <div class="myform col-6 py-2">
+
+                <div class="myform">
                     <input asp-for="Input.ConfirmPassword" class="input" aria-required="true" placeholder="Confirm Password" />
                     <span @*asp-validation-for="Input.ConfirmPassword"*@ class="input-border"></span>
                 </div>
 
                 <div class="myform col-6 py-2">
                     <input asp-for="Input.FirstName" class="input" aria-required="true" placeholder="FirstName" />
-                    <span asp-validation-for="Input.FirstName" class="input-border"></span>
+                    <span@* asp-validation-for="Input.FirstName"*@ class="input-border"></span>
                 </div>
 
                 <div class="myform col-6 py-2">
                     <input asp-for="Input.LastName" class="input" aria-required="true" placeholder="LastName" />
-                    <span asp-validation-for="Input.LastName" class="input-border"></span>
+                    <span @*asp-validation-for="Input.LastName"*@ class="input-border"></span>
                 </div>
 
                 <div class="myform col-6 py-2">
                     <input asp-for="Input.City" class="input" aria-required="true" placeholder="City" />
-                    <span asp-validation-for="Input.City" class="input-border"></span>
+                    <span @*asp-validation-for="Input.City"*@ class="input-border"></span>
                 </div>
 
                 <div class="myform col-12 py-2">
                     <input asp-for="Input.PhoneNumber" class="input" aria-required="true" placeholder="Phone #" />
-                    <span asp-validation-for="Input.PhoneNumber" class="input-border"></span>
+                    <span @*asp-validation-for="Input.PhoneNumber"*@ class="input-border"></span>
                 </div>
                 <div class="myform col-12 py-2">
-                <input asp-for="Input.ImageData" class="form-control" type="file" id="ImageData" />
+                <input asp-for="Input.ImageData" class="form-control" type="file" id="ImageData" data-val="false" />
                     <span @*asp-validation-for="Input.ImageData"*@ class="input-border"></span>
                 </div>
 
-                <button id="registerSubmit" type="submit" class="w-50 btn btn-lg btn-primary">Register</button>
+                <button id="registerSubmit" type="submit">Register</button>
                 <hr />
 
-            </form>
+        </form>
+
     </div>
     <div class="col-md-6 col-md-offset-2">
         <section>

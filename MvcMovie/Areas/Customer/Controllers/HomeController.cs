@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MvcMovie.Models;
 using System.Diagnostics;
 
 namespace MvcMovie.Areas.Customer.Controllers
 {
     [Area("Customer")]
-    public class HomeController : Controller
+	public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
 

@@ -1,15 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MvcMovie.DataAccessLayer;
 using MvcMovie.DataAccessLayer.Infrastructure.IRepository;
 using MvcMovie.Models;
 using MvcMovie.Models.Models;
 using MvcMovie.Models.ViewModels;
 using System.ComponentModel;
+using System.Data;
 
 namespace MvcMovie.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class DepartmentController : Controller
+	[Authorize(Roles = "Admin")]
+	public class DepartmentController : Controller
     {
         private const string ErrorMessage = "Please select an image file.";
         //private ApplicationDbContext _context;

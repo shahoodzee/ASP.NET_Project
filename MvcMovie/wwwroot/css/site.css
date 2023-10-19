@@ -8,6 +8,22 @@ html {
   }
 }
 
+button, button:focus {
+    font-size: 12px;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 0.7rem;
+    background-image: linear-gradient(rgb(0, 128, 255), rgb(0, 128, 255));
+    border-bottom: 5px solid rgb(50, 50, 50);
+    transform: translate(0, -3px);
+    transition: 0.2s;
+    transition-timing-function: linear;
+}
+
+button:active {
+        transform: translate(0, 0);
+        border-bottom: 2px solid rgb(50, 50, 50);
+}
 html {
   position: relative;
   min-height: 100%;
@@ -32,10 +48,10 @@ body {
 }
 
 .myform {
-    --width-of-input: 300px;
-    --border-height: 1px;
-    --border-before-color: rgba(221, 221, 221, 0.39);
-    --border-after-color: #5891ff;
+    --width-of-input: 100px;
+    --border-height: 1.0px;
+   /* --border-before-color: rgba(50, 50, 50, 0.39);*/
+    --border-after-color: rgb(0,128,255);
     --input-hovered-color: #4985e01f;
     position: relative;
     width: var(--width-of-input);
@@ -45,7 +61,7 @@ body {
     color:black;
     font-size: 1rem;
     background-color: transparent;
-    width: 100%;
+    width: 300%;
     box-sizing: border-box;
     padding-inline: 0.5em;
     padding-block: 0.7em;
@@ -72,7 +88,7 @@ input:focus {
 }
     /* here is code of animated border */
     input:focus ~ .input-border {
-        width: 100%;
+        width: 200%;
     }
 /* === if you want to do animated border on typing === */
 /* remove input:focus code and uncomment below code */
